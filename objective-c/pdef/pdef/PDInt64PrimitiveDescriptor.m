@@ -10,4 +10,30 @@
 
 @implementation PDInt64PrimitiveDescriptor
 
+- (NSNumber *)default {
+    return @((long long)0);
+}
+
+- (NSNumber *)parse:(id)object {
+    if ([object isKindOfClass:[NSNumber class]]) {
+        return @([object longLongValue]);
+    }
+    if ([object isKindOfClass:[NSString class]]) {
+        return @([object longLongValue]);
+    }
+    return @((long long)0);
+}
+
+- (NSNumber *)serialize:(NSNumber *)object {
+    return @((long long)(object ? [object longLongValue] : 0));
+}
+
+- (NSNumber *)parseFromString:(NSString *)string {
+    return @((long long)(string ? [string longLongValue] : 0));
+}
+
+- (NSString *)serializeToString:(NSNumber *)object {
+    return [@((long long)(object ? [object longLongValue] : 0)) stringValue];
+}
+
 @end

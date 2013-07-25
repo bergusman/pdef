@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		440087CD17A1248D00357121 /* PDVoid.m in Sources */ = {isa = PBXBuildFile; fileRef = 440087CC17A1248D00357121 /* PDVoid.m */; };
+		4404E3EE17A1763F00A97143 /* PDException.m in Sources */ = {isa = PBXBuildFile; fileRef = 4404E3ED17A1763F00A97143 /* PDException.m */; };
 		AD7DDE8517A0E584004723BF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD7DDE8417A0E584004723BF /* UIKit.framework */; };
 		AD7DDE8717A0E584004723BF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD7DDE8617A0E584004723BF /* Foundation.framework */; };
 		AD7DDE8917A0E584004723BF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD7DDE8817A0E584004723BF /* CoreGraphics.framework */; };
@@ -33,6 +35,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		440087CB17A1248D00357121 /* PDVoid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDVoid.h; sourceTree = "<group>"; };
+		440087CC17A1248D00357121 /* PDVoid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDVoid.m; sourceTree = "<group>"; };
+		4404E3EC17A1763F00A97143 /* PDException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDException.h; sourceTree = "<group>"; };
+		4404E3ED17A1763F00A97143 /* PDException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDException.m; sourceTree = "<group>"; };
 		AD7DDE8117A0E584004723BF /* pdef.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pdef.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD7DDE8417A0E584004723BF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		AD7DDE8617A0E584004723BF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -91,6 +97,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4404E3EB17A1762800A97143 /* Exception */ = {
+			isa = PBXGroup;
+			children = (
+				4404E3EC17A1763F00A97143 /* PDException.h */,
+				4404E3ED17A1763F00A97143 /* PDException.m */,
+			);
+			name = Exception;
+			sourceTree = "<group>";
+		};
 		AD7DDE7817A0E584004723BF = {
 			isa = PBXGroup;
 			children = (
@@ -165,7 +180,10 @@
 		AD7DDEA917A0E6EC004723BF /* pdef */ = {
 			isa = PBXGroup;
 			children = (
+				4404E3EB17A1762800A97143 /* Exception */,
 				AD7DDEAC17A0E774004723BF /* Descriptors */,
+				440087CB17A1248D00357121 /* PDVoid.h */,
+				440087CC17A1248D00357121 /* PDVoid.m */,
 			);
 			name = pdef;
 			sourceTree = "<group>";
@@ -293,6 +311,8 @@
 				AD7DDED217A11990004723BF /* PDListDescriptor.m in Sources */,
 				AD7DDED517A119BB004723BF /* PDSetDescriptor.m in Sources */,
 				AD7DDED817A119E7004723BF /* PDMapDescriptor.m in Sources */,
+				440087CD17A1248D00357121 /* PDVoid.m in Sources */,
+				4404E3EE17A1763F00A97143 /* PDException.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -415,6 +435,7 @@
 				AD7DDEA617A0E584004723BF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

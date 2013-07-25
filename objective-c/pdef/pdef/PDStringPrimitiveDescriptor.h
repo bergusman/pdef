@@ -8,6 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-@interface PDStringPrimitiveDescriptor : NSObject
+#import "PDPrimitiveDescriptor.h"
+
+@interface PDStringPrimitiveDescriptor : NSObject <PDPrimitiveDescriptor>
+
+- (NSString *)default;
+- (NSString *)parse:(id)object;
+- (NSString *)serialize:(NSNumber *)object;
+- (NSString *)parseFromString:(NSString *)string;
+- (NSString *)serializeToString:(NSNumber *)object;
 
 @end

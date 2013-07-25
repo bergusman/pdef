@@ -9,6 +9,18 @@
 #import <Foundation/Foundation.h>
 
 #import "PDBoolPrimitiveDescriptor.h"
+#import "PDInt16PrimitiveDescriptor.h"
+#import "PDInt32PrimitiveDescriptor.h"
+#import "PDInt64PrimitiveDescriptor.h"
+
+#import "PDFloatPrimitiveDescriptor.h"
+#import "PDDoublePrimitiveDescriptor.h"
+
+#import "PDStringPrimitiveDescriptor.h"
+
+#import "PDListDescriptor.h"
+#import "PDSetDescriptor.h"
+#import "PDMapDescriptor.h"
 
 @interface PDDescriptors : NSObject
 
@@ -19,6 +31,8 @@
 
 + (PDBoolPrimitiveDescriptor *)floatDescriptor;
 + (PDBoolPrimitiveDescriptor *)doubleDescriptor;
+
++ (PDStringPrimitiveDescriptor *)stringDescriptor;
 
 + (PDBoolPrimitiveDescriptor *)listDescriptor;
 + (PDBoolPrimitiveDescriptor *)setDescriptor;

@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-@interface PDVoidDescriptor : NSObject
+#import "PDDescriptor.h"
+
+@interface PDVoidDescriptor : NSObject <PDDescriptor>
+
+- (NSNumber *)default;
+- (NSNumber *)parse:(id)object;
+- (NSNumber *)serialize:(NSNumber *)object;
 
 @end
