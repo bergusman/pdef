@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 Vitaly Berg. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
+
 #import "PDDescriptor.h"
 
 @protocol PDPrimitiveDescriptor <PDDescriptor>
