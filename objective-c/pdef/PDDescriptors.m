@@ -7,6 +7,503 @@
 //
 
 #import "PDDescriptors.h"
+#import "PDException.h"
+
+#pragma mark - Bool Descriptor
+
+@interface PDBoolPrimitiveDescriptor : NSObject <PDPrimitiveDescriptor>
+
+@end
+
+@implementation PDBoolPrimitiveDescriptor
+
+- (NSNumber *)default {
+    return @NO;
+}
+
+- (NSNumber *)parse:(id)object {
+    if (!object) {
+        return @NO;
+    }
+    if ([object isEqual:[NSNull null]]) {
+        return @NO;
+    }
+    if ([object isKindOfClass:[NSNumber class]]) {
+        return @([object boolValue]);
+    }
+    if ([object isKindOfClass:[NSString class]]) {
+        return @([object boolValue]);
+    }
+    [NSException raise:PDCastException format:nil];
+    return nil;
+}
+
+- (NSNumber *)serialize:(NSNumber *)object {
+    if (!object) {
+        return @NO;
+    }
+    if ([object isEqual:[NSNull null]]) {
+        return @NO;
+    }
+    if (![object isKindOfClass:[NSNumber class]]) {
+        [NSException raise:PDCastException format:nil];
+    }
+    return @([object boolValue]);
+}
+
+- (NSNumber *)parseFromString:(NSString *)string {
+    if (!string) {
+        return @NO;
+    }
+    if ([string isEqual:[NSNull null]]) {
+        return @NO;
+    }
+    if (![string isKindOfClass:[NSString class]]) {
+        [NSException raise:PDCastException format:nil];
+    }
+    return @([string boolValue]);
+}
+
+- (NSString *)serializeToString:(NSNumber *)object {
+    if (!object) {
+        return @"false";
+    }
+    if ([object isEqual:[NSNull null]]) {
+        return @"false";
+    }
+    if (![object isKindOfClass:[NSNumber class]]) {
+        [NSException raise:PDCastException format:nil];
+    }
+    return [object boolValue] ? @"true" : @"false";
+}
+
+@end
+
+#pragma mark - Int16 Descriptor
+
+@interface PDInt16PrimitiveDescriptor : NSObject <PDPrimitiveDescriptor>
+
+@end
+
+@implementation PDInt16PrimitiveDescriptor
+
+- (NSNumber *)default {
+    return @((short)0);
+}
+
+- (NSNumber *)parse:(id)object {
+    if (!object) {
+        return @((short)0);
+    }
+    if ([object isEqual:[NSNull null]]) {
+        return @((short)0);
+    }
+    if ([object isKindOfClass:[NSNumber class]]) {
+        return @([object shortValue]);
+    }
+    if ([object isKindOfClass:[NSString class]]) {
+        return @((short)[object intValue]);
+    }
+    [NSException raise:PDCastException format:nil];
+    return nil;
+}
+
+- (NSNumber *)serialize:(NSNumber *)object {
+    if (!object) {
+        return @((short)0);
+    }
+    if ([object isEqual:[NSNull null]]) {
+        return @((short)0);
+    }
+    if (![object isKindOfClass:[NSNumber class]]) {
+        [NSException raise:PDCastException format:nil];
+    }
+    return @([object shortValue]);
+}
+
+- (NSNumber *)parseFromString:(NSString *)string {
+    if (!string) {
+        return @((short)0);
+    }
+    if ([string isEqual:[NSNull null]]) {
+        return @((short)0);
+    }
+    if (![string isKindOfClass:[NSString class]]) {
+        [NSException raise:PDCastException format:nil];
+    }
+    return @((short)[string intValue]);
+}
+
+- (NSString *)serializeToString:(NSNumber *)object {
+    if (!object) {
+        return @"0";
+    }
+    if ([object isEqual:[NSNull null]]) {
+        return @"0";
+    }
+    if (![object isKindOfClass:[NSNumber class]]) {
+        [NSException raise:PDCastException format:nil];
+    }
+    return [@([object shortValue]) stringValue];
+}
+
+@end
+
+#pragma mark - Int32 Descriptor
+
+@interface PDInt32PrimitiveDescriptor : NSObject <PDPrimitiveDescriptor>
+
+@end
+
+@implementation PDInt32PrimitiveDescriptor
+
+- (NSNumber *)default {
+    return @((int)0);
+}
+
+- (NSNumber *)parse:(id)object {
+    if (!object) {
+        return @((int)0);
+    }
+    if ([object isEqual:[NSNull null]]) {
+        return @((int)0);
+    }
+    if ([object isKindOfClass:[NSNumber class]]) {
+        return @([object intValue]);
+    }
+    if ([object isKindOfClass:[NSString class]]) {
+        return @([object intValue]);
+    }
+    [NSException raise:PDCastException format:nil];
+    return nil;
+}
+
+- (NSNumber *)serialize:(NSNumber *)object {
+    if (!object) {
+        return @((int)0);
+    }
+    if ([object isEqual:[NSNull null]]) {
+        return @((int)0);
+    }
+    if (![object isKindOfClass:[NSNumber class]]) {
+        [NSException raise:PDCastException format:nil];
+    }
+    return @([object intValue]);
+}
+
+- (NSNumber *)parseFromString:(NSString *)string {
+    if (!string) {
+        return @((int)0);
+    }
+    if ([string isEqual:[NSNull null]]) {
+        return @((int)0);
+    }
+    if (![string isKindOfClass:[NSString class]]) {
+        [NSException raise:PDCastException format:nil];
+    }
+    return @([string intValue]);
+}
+
+- (NSString *)serializeToString:(NSNumber *)object {
+    if (!object) {
+        return @"0";
+    }
+    if ([object isEqual:[NSNull null]]) {
+        return @"0";
+    }
+    if (![object isKindOfClass:[NSNumber class]]) {
+        [NSException raise:PDCastException format:nil];
+    }
+    return [@([object intValue]) stringValue];
+}
+
+@end
+
+#pragma mark - Int64 Descriptor
+
+@interface PDInt64PrimitiveDescriptor : NSObject <PDPrimitiveDescriptor>
+
+@end
+
+@implementation PDInt64PrimitiveDescriptor
+
+- (NSNumber *)default {
+    return @((long long)0);
+}
+
+- (NSNumber *)parse:(id)object {
+    if (!object) {
+        return @((long long)0);
+    }
+    if ([object isEqual:[NSNull null]]) {
+        return @((long long)0);
+    }
+    if ([object isKindOfClass:[NSNumber class]]) {
+        return @([object longLongValue]);
+    }
+    if ([object isKindOfClass:[NSString class]]) {
+        return @([object longLongValue]);
+    }
+    [NSException raise:PDCastException format:nil];
+    return nil;
+}
+
+- (NSNumber *)serialize:(NSNumber *)object {
+    if (!object) {
+        return @((long long)0);
+    }
+    if ([object isEqual:[NSNull null]]) {
+        return @((long long)0);
+    }
+    if (![object isKindOfClass:[NSNumber class]]) {
+        [NSException raise:PDCastException format:nil];
+    }
+    return @([object longLongValue]);
+}
+
+- (NSNumber *)parseFromString:(NSString *)string {
+    if (!string) {
+        return @((long long)0);
+    }
+    if ([string isEqual:[NSNull null]]) {
+        return @((long long)0);
+    }
+    if (![string isKindOfClass:[NSString class]]) {
+        [NSException raise:PDCastException format:nil];
+    }
+    return @([string longLongValue]);
+}
+
+- (NSString *)serializeToString:(NSNumber *)object {
+    if (!object) {
+        return @"0";
+    }
+    if ([object isEqual:[NSNull null]]) {
+        return @"0";
+    }
+    if (![object isKindOfClass:[NSNumber class]]) {
+        [NSException raise:PDCastException format:nil];
+    }
+    return [@([object longLongValue]) stringValue];
+}
+
+@end
+
+#pragma mark - Float Descriptor
+
+@interface PDFloatPrimitiveDescriptor : NSObject <PDPrimitiveDescriptor>
+
+@end
+
+@implementation PDFloatPrimitiveDescriptor
+
+- (NSNumber *)default {
+    return @((float)0);
+}
+
+- (NSNumber *)parse:(id)object {
+    if (!object) {
+        return @((float)0);
+    }
+    if ([object isEqual:[NSNull null]]) {
+        return @((float)0);
+    }
+    if ([object isKindOfClass:[NSNumber class]]) {
+        return @([object floatValue]);
+    }
+    if ([object isKindOfClass:[NSString class]]) {
+        return @([object floatValue]);
+    }
+    [NSException raise:PDCastException format:nil];
+    return nil;
+}
+
+- (NSNumber *)serialize:(NSNumber *)object {
+    if (!object) {
+        return @((float)0);
+    }
+    if ([object isEqual:[NSNull null]]) {
+        return @((float)0);
+    }
+    if (![object isKindOfClass:[NSNumber class]]) {
+        [NSException raise:PDCastException format:nil];
+    }
+    return @([object floatValue]);
+}
+
+- (NSNumber *)parseFromString:(NSString *)string {
+    if (!string) {
+        return @((float)0);
+    }
+    if ([string isEqual:[NSNull null]]) {
+        return @((float)0);
+    }
+    if (![string isKindOfClass:[NSString class]]) {
+        [NSException raise:PDCastException format:nil];
+    }
+    return @([string floatValue]);
+}
+
+- (NSString *)serializeToString:(NSNumber *)object {
+    if (!object) {
+        return @"0";
+    }
+    if ([object isEqual:[NSNull null]]) {
+        return @"0";
+    }
+    if (![object isKindOfClass:[NSNumber class]]) {
+        [NSException raise:PDCastException format:nil];
+    }
+    return [@([object floatValue]) stringValue];
+}
+
+@end
+
+#pragma mark - Double Descriptor
+
+@interface PDDoublePrimitiveDescriptor : NSObject <PDPrimitiveDescriptor>
+
+@end
+
+@implementation PDDoublePrimitiveDescriptor
+
+- (NSNumber *)default {
+    return @((double)0);
+}
+
+- (NSNumber *)parse:(id)object {
+    if (!object) {
+        return @((double)0);
+    }
+    if ([object isEqual:[NSNull null]]) {
+        return @((double)0);
+    }
+    if ([object isKindOfClass:[NSNumber class]]) {
+        return @([object doubleValue]);
+    }
+    if ([object isKindOfClass:[NSString class]]) {
+        return @([object doubleValue]);
+    }
+    [NSException raise:PDCastException format:nil];
+    return nil;
+}
+
+- (NSNumber *)serialize:(NSNumber *)object {
+    if (!object) {
+        return @((double)0);
+    }
+    if ([object isEqual:[NSNull null]]) {
+        return @((double)0);
+    }
+    if (![object isKindOfClass:[NSNumber class]]) {
+        [NSException raise:PDCastException format:nil];
+    }
+    return @([object doubleValue]);
+}
+
+- (NSNumber *)parseFromString:(NSString *)string {
+    if (!string) {
+        return @((double)0);
+    }
+    if ([string isEqual:[NSNull null]]) {
+        return @((double)0);
+    }
+    if (![string isKindOfClass:[NSString class]]) {
+        [NSException raise:PDCastException format:nil];
+    }
+    return @([string doubleValue]);
+}
+
+- (NSString *)serializeToString:(NSNumber *)object {
+    if (!object) {
+        return @"0";
+    }
+    if ([object isEqual:[NSNull null]]) {
+        return @"0";
+    }
+    if (![object isKindOfClass:[NSNumber class]]) {
+        [NSException raise:PDCastException format:nil];
+    }
+    return [@([object doubleValue]) stringValue];
+}
+
+@end
+
+#pragma mark - String Descriptor
+
+@interface PDStringPrimitiveDescriptor : NSObject <PDPrimitiveDescriptor>
+
+@end
+
+@implementation PDStringPrimitiveDescriptor
+
+- (NSNumber *)default {
+    return nil;
+}
+
+- (NSNumber *)parse:(id)object {
+    if ([object isKindOfClass:[NSNumber class]]) {
+        return @([object doubleValue]);
+    }
+    if ([object isKindOfClass:[NSString class]]) {
+        return @([object doubleValue]);
+    }
+    return @((double)0);
+}
+
+- (NSNumber *)serialize:(NSNumber *)object {
+    return @((double)(object ? [object doubleValue] : 0));
+}
+
+- (NSNumber *)parseFromString:(NSString *)string {
+    return @((double)(string ? [string doubleValue] : 0));
+}
+
+- (NSString *)serializeToString:(NSNumber *)object {
+    return [@((double)(object ? [object doubleValue] : 0)) stringValue];
+}
+
+@end
+
+#pragma mark - List Descriptor
+
+@interface PDListDescriptor : NSObject <PDDescriptor>
+
+@end
+
+@implementation PDListDescriptor
+
+@end
+
+#pragma mark - Set Descriptor
+
+@interface PDSetDescriptor : NSObject <PDDescriptor>
+
+@end
+
+@implementation PDSetDescriptor
+
+@end
+
+#pragma mark - Map Descriptor
+
+@interface PDMapDescriptor : NSObject <PDDescriptor>
+
+@end
+
+@implementation PDMapDescriptor
+
+@end
+
+#pragma mark - Void Descriptor
+
+@interface PDVoidDescriptor : NSObject <PDDescriptor>
+
+@end
+
+@implementation PDVoidDescriptor
+
+@end
 
 #pragma mark - Descriptors
 
@@ -33,7 +530,17 @@
 - (id)init {
     self = [super init];
     if (self) {
-        _setDescriptor = [[PDSetPrimitiveDescriptor alloc] init];
+        _boolDescriptor = [[PDBoolPrimitiveDescriptor alloc] init];
+        _int16Descriptor = [[PDInt16PrimitiveDescriptor alloc] init];
+        _int32Descriptor = [[PDInt32PrimitiveDescriptor alloc] init];
+        _int64Descriptor = [[PDInt64PrimitiveDescriptor alloc] init];
+        _floatDescriptor = [[PDFloatPrimitiveDescriptor alloc] init];
+        _doubleDescriptor = [[PDDoublePrimitiveDescriptor alloc] init];
+        _stringDescriptor = [[PDStringPrimitiveDescriptor alloc] init];
+        _listDescriptor = [[PDListDescriptor alloc] init];
+        _setDescriptor = [[PDSetDescriptor alloc] init];
+        _mapDescriptor = [[PDMapDescriptor alloc] init];
+        _voidDescriptor = [[PDVoidDescriptor alloc] init];
     }
     return self;
 }
@@ -90,293 +597,5 @@
 + (id<PDDescriptor>)voidDescriptor {
     return [[self sharedDescriptors] voidDescriptor];
 }
-
-@end
-
-#pragma mark - Bool Descriptor
-
-@interface PDBoolPrimitiveDescriptor : NSObject <PDPrimitiveDescriptor>
-
-@end
-
-@implementation PDBoolPrimitiveDescriptor
-
-- (NSNumber *)default {
-    return @NO;
-}
-
-- (NSNumber *)parse:(id)object {
-    if ([object isKindOfClass:[NSNumber class]]) {
-        return @([object boolValue]);
-    }
-    if ([object isKindOfClass:[NSString class]]) {
-        return @([object boolValue]);
-    }
-    return @(NO);
-}
-
-- (NSNumber *)serialize:(NSNumber *)object {
-    return @(object ? [object boolValue] : NO);
-}
-
-- (NSNumber *)parseFromString:(NSString *)string {
-    return @(string ? [string boolValue] : NO);
-}
-
-- (NSString *)serializeToString:(NSNumber *)object {
-    return [@(object ? [object boolValue] : NO) stringValue];
-}
-
-@end
-
-#pragma mark - Int16 Descriptor
-
-@interface PDInt16PrimitiveDescriptor : NSObject <PDPrimitiveDescriptor>
-
-@end
-
-@implementation PDInt16PrimitiveDescriptor
-
-- (NSNumber *)default {
-    return @((short)0);
-}
-
-- (NSNumber *)parse:(id)object {
-    if ([object isKindOfClass:[NSNumber class]]) {
-        return @([object shortValue]);
-    }
-    if ([object isKindOfClass:[NSString class]]) {
-        return @([object intValue]);
-    }
-    return @((short)0);
-}
-
-- (NSNumber *)serialize:(NSNumber *)object {
-    return @((short)(object ? [object shortValue] : 0));
-}
-
-- (NSNumber *)parseFromString:(NSString *)string {
-    return @((short)(string ? [string intValue] : 0));
-}
-
-- (NSString *)serializeToString:(NSNumber *)object {
-    return [@((short)(object ? [object shortValue] : 0)) stringValue];
-}
-
-@end
-
-#pragma mark - Int32 Descriptor
-
-@interface PDInt32PrimitiveDescriptor : NSObject <PDPrimitiveDescriptor>
-
-@end
-
-@implementation PDInt32PrimitiveDescriptor
-
-- (NSNumber *)default {
-    return @(0);
-}
-
-- (NSNumber *)parse:(id)object {
-    if ([object isKindOfClass:[NSNumber class]]) {
-        return @([object intValue]);
-    }
-    if ([object isKindOfClass:[NSString class]]) {
-        return @([object intValue]);
-    }
-    return @(0);
-}
-
-- (NSNumber *)serialize:(NSNumber *)object {
-    return @(object ? [object intValue] : 0);
-}
-
-- (NSNumber *)parseFromString:(NSString *)string {
-    return @(string ? [string intValue] : 0);
-}
-
-- (NSString *)serializeToString:(NSNumber *)object {
-    return [@(object ? [object intValue] : 0) stringValue];
-}
-
-@end
-
-#pragma mark - Int64 Descriptor
-
-@interface PDInt64PrimitiveDescriptor : NSObject <PDPrimitiveDescriptor>
-
-@end
-
-@implementation PDInt64PrimitiveDescriptor
-
-- (NSNumber *)default {
-    return @((long long)0);
-}
-
-- (NSNumber *)parse:(id)object {
-    if ([object isKindOfClass:[NSNumber class]]) {
-        return @([object longLongValue]);
-    }
-    if ([object isKindOfClass:[NSString class]]) {
-        return @([object longLongValue]);
-    }
-    return @((long long)0);
-}
-
-- (NSNumber *)serialize:(NSNumber *)object {
-    return @((long long)(object ? [object longLongValue] : 0));
-}
-
-- (NSNumber *)parseFromString:(NSString *)string {
-    return @((long long)(string ? [string longLongValue] : 0));
-}
-
-- (NSString *)serializeToString:(NSNumber *)object {
-    return [@((long long)(object ? [object longLongValue] : 0)) stringValue];
-}
-
-@end
-
-#pragma mark - Float Descriptor
-
-@interface PDFloatPrimitiveDescriptor : NSObject <PDPrimitiveDescriptor>
-
-@end
-
-@implementation PDFloatPrimitiveDescriptor
-
-- (NSNumber *)default {
-    return @((float)0);
-}
-
-- (NSNumber *)parse:(id)object {
-    if ([object isKindOfClass:[NSNumber class]]) {
-        return @([object floatValue]);
-    }
-    if ([object isKindOfClass:[NSString class]]) {
-        return @([object floatValue]);
-    }
-    return @((float)0);
-}
-
-- (NSNumber *)serialize:(NSNumber *)object {
-    return @((float)(object ? [object floatValue] : 0));
-}
-
-- (NSNumber *)parseFromString:(NSString *)string {
-    return @((float)(string ? [string floatValue] : 0));
-}
-
-- (NSString *)serializeToString:(NSNumber *)object {
-    return [@((float)(object ? [object floatValue] : 0)) stringValue];
-}
-
-@end
-
-#pragma mark - Double Descriptor
-
-@interface PDDoublePrimitiveDescriptor : NSObject <PDPrimitiveDescriptor>
-
-@end
-
-@implementation PDDoublePrimitiveDescriptor
-
-- (NSNumber *)default {
-    return @((double)0);
-}
-
-- (NSNumber *)parse:(id)object {
-    if ([object isKindOfClass:[NSNumber class]]) {
-        return @([object doubleValue]);
-    }
-    if ([object isKindOfClass:[NSString class]]) {
-        return @([object doubleValue]);
-    }
-    return @((double)0);
-}
-
-- (NSNumber *)serialize:(NSNumber *)object {
-    return @((double)(object ? [object doubleValue] : 0));
-}
-
-- (NSNumber *)parseFromString:(NSString *)string {
-    return @((double)(string ? [string doubleValue] : 0));
-}
-
-- (NSString *)serializeToString:(NSNumber *)object {
-    return [@((double)(object ? [object doubleValue] : 0)) stringValue];
-}
-
-@end
-
-#pragma mark - String Descriptor
-
-@interface PDStringPrimitiveDescriptor : NSObject <PDPrimitiveDescriptor>
-
-@end
-
-@implementation PDStringPrimitiveDescriptor
-
-- (NSNumber *)default {
-    return nil;
-}
-
-- (NSNumber *)parse:(id)object {
-    if ([object isKindOfClass:[NSNumber class]]) {
-        return @([object doubleValue]);
-    }
-    if ([object isKindOfClass:[NSString class]]) {
-        return @([object doubleValue]);
-    }
-    return @((double)0);
-}
-
-- (NSNumber *)serialize:(NSNumber *)object {
-    return @((double)(object ? [object doubleValue] : 0));
-}
-
-- (NSNumber *)parseFromString:(NSString *)string {
-    return @((double)(string ? [string doubleValue] : 0));
-}
-
-- (NSString *)serializeToString:(NSNumber *)object {
-    return [@((double)(object ? [object doubleValue] : 0)) stringValue];
-}
-
-@end
-
-#pragma mark - List Descriptor
-
-@interface PDListPrimitiveDescriptor : NSObject <PDDescriptor>
-
-@end
-
-@implementation PDListDescriptor
-
-@end
-
-#pragma mark - Set Descriptor
-
-@interface PDSetPrimitiveDescriptor : NSObject <PDDescriptor>
-
-@end
-
-#pragma mark - Map Descriptor
-
-@interface PDMapPrimitiveDescriptor : NSObject <PDDescriptor>
-
-@end
-
-@implementation PDMapDescriptor
-
-@end
-
-#pragma mark - Void Descriptor
-
-@interface PDVoidDescriptor : NSObject <PDDescriptor>
-
-@end
-
-@implementation PDVoidDescriptor
 
 @end

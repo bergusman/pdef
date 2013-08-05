@@ -8,6 +8,4 @@
 
 #import "PDException.h"
 
-@implementation PDException
-
-@end
+NSString * const PDCastException = @"PDCastException";

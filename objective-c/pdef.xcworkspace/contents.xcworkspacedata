@@ -8,6 +8,9 @@
          location = "group:pdef/PDDescriptor.h">
       </FileRef>
       <FileRef
+         location = "group:pdef/PDPrimitiveDescriptor.h">
+      </FileRef>
+      <FileRef
          location = "group:pdef/PDDescriptors.h">
       </FileRef>
       <FileRef
@@ -19,8 +22,8 @@
       <FileRef
          location = "group:pdef/PDException.m">
       </FileRef>
-      <FileRef
-         location = "group:pdef/PDPrimitiveDescriptor.h">
-      </FileRef>
    </Group>
+   <FileRef
+      location = "group:tests/pdef tests.xcodeproj">
+   </FileRef>
 </Workspace>
