@@ -22,9 +22,10 @@
 
 + (id<PDPrimitiveDescriptor>)stringDescriptor;
 
-+ (id<PDDescriptor>)listDescriptor;
-+ (id<PDDescriptor>)setDescriptor;
-+ (id<PDDescriptor>)mapDescriptor;
++ (id<PDDescriptor>)listDescriptor:(id<PDDescriptor>)elementDescriptor;
++ (id<PDDescriptor>)setDescriptor:(id<PDDescriptor>)elementDescriptor;
++ (id<PDDescriptor>)mapDescriptorWithKeyDescriptor:(id<PDDescriptor>)keyDescriptor
+                                   valueDescriptor:(id<PDDescriptor>)valueDescriptor;
 
 + (id<PDDescriptor>)voidDescriptor;
 

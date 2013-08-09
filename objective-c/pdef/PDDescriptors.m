@@ -437,18 +437,21 @@
 
 @implementation PDStringPrimitiveDescriptor
 
-- (NSNumber *)default {
+- (id)default {
     return nil;
 }
 
-- (NSNumber *)parse:(id)object {
-    if ([object isKindOfClass:[NSNumber class]]) {
-        return @([object doubleValue]);
+- (id)parse:(id)object {
+    if (!object) {
+        return nil;
     }
-    if ([object isKindOfClass:[NSString class]]) {
-        return @([object doubleValue]);
+    if ([object isEqual:[NSNull null]]) {
+        return nil;
     }
-    return @((double)0);
+    if (![object isKindOfClass:[NSString class]]) {
+        [NSException raise:PDCastException format:nil];
+    }
+    return object;
 }
 
 - (NSNumber *)serialize:(NSNumber *)object {
@@ -469,9 +472,68 @@
 
 @interface PDListDescriptor : NSObject <PDDescriptor>
 
+- (id)initWithElementDescriptor:(id<PDDescriptor>)elementDescriptor;
+
 @end
 
-@implementation PDListDescriptor
+@implementation PDListDescriptor {
+    id<PDDescriptor> _elementDescriptor;
+}
+
+- (id)initWithElementDescriptor:(id<PDDescriptor>)elementDescriptor {
+    if (!elementDescriptor) {
+        [NSException raise:NSInvalidArgumentException format:nil];
+    }
+    self = [super init];
+    if (self) {
+        _elementDescriptor = elementDescriptor;
+    }
+    return self;
+}
+
+- (id)default {
+    return @[];
+}
+
+- (id)parse:(id)object {
+    if (!object) {
+        return nil;
+    }
+    if ([object isEqual:[NSNull null]]) {
+        return nil;
+    }
+    if (![object isKindOfClass:[NSArray class]]) {
+        [NSException raise:PDCastException format:nil];
+    }
+    NSMutableArray *result = [NSMutableArray arrayWithCapacity:[object count]];
+    for (id item in object) {
+        id resultItem = [_elementDescriptor parse:item];
+        if (resultItem) {
+            [result addObject:resultItem];
+        }
+    }
+    return [result copy];
+}
+
+- (id)serialize:(id)object {
+    if (!object) {
+        return nil;
+    }
+    if ([object isEqual:[NSNull null]]) {
+        return nil;
+    }
+    if (![object isKindOfClass:[NSArray class]]) {
+        [NSException raise:PDCastException format:nil];
+    }
+    NSMutableArray *result = [NSMutableArray arrayWithCapacity:[object count]];
+    for (id item in object) {
+        id resultItem = [_elementDescriptor serialize:item];
+        if (resultItem) {
+            [result addObject:resultItem];
+        }
+    }
+    return [result copy];
+}
 
 @end
 
@@ -479,9 +541,24 @@
 
 @interface PDSetDescriptor : NSObject <PDDescriptor>
 
+- (id)initWithElementDescriptor:(id<PDDescriptor>)elementDescriptor;
+
 @end
 
-@implementation PDSetDescriptor
+@implementation PDSetDescriptor {
+    id<PDDescriptor> _elementDescriptor;
+}
+
+- (id)initWithElementDescriptor:(id<PDDescriptor>)elementDescriptor {
+    if (!elementDescriptor) {
+        [NSException raise:NSInvalidArgumentException format:nil];
+    }
+    self = [super init];
+    if (self) {
+        _elementDescriptor = elementDescriptor;
+    }
+    return self;
+}
 
 @end
 
@@ -489,9 +566,32 @@
 
 @interface PDMapDescriptor : NSObject <PDDescriptor>
 
+- (id)initWithKeyDescriptor:(id<PDDescriptor>)keyDescriptor
+            valueDescriptor:(id<PDDescriptor>)valueDescriptor;
+
 @end
 
-@implementation PDMapDescriptor
+@implementation PDMapDescriptor {
+    id<PDDescriptor> _keyDescriptor;
+    id<PDDescriptor> _valueDescriptor;
+}
+
+- (id)initWithKeyDescriptor:(id<PDDescriptor>)keyDescriptor
+            valueDescriptor:(id<PDDescriptor>)valueDescriptor
+{
+    if (!keyDescriptor) {
+        [NSException raise:NSInvalidArgumentException format:nil];
+    }
+    if (!valueDescriptor) {
+        [NSException raise:NSInvalidArgumentException format:nil];
+    }
+    self = [super init];
+    if (self) {
+        _keyDescriptor = keyDescriptor;
+        _valueDescriptor = valueDescriptor;
+    }
+    return self;
+}
 
 @end
 
@@ -516,9 +616,6 @@
 @property (strong, nonatomic, readonly) id<PDPrimitiveDescriptor> floatDescriptor;
 @property (strong, nonatomic, readonly) id<PDPrimitiveDescriptor> doubleDescriptor;
 @property (strong, nonatomic, readonly) id<PDPrimitiveDescriptor> stringDescriptor;
-@property (strong, nonatomic, readonly) id<PDDescriptor> listDescriptor;
-@property (strong, nonatomic, readonly) id<PDDescriptor> setDescriptor;
-@property (strong, nonatomic, readonly) id<PDDescriptor> mapDescriptor;
 @property (strong, nonatomic, readonly) id<PDDescriptor> voidDescriptor;
 
 + (PDDescriptors *)sharedDescriptors;
@@ -537,9 +634,6 @@
         _floatDescriptor = [[PDFloatPrimitiveDescriptor alloc] init];
         _doubleDescriptor = [[PDDoublePrimitiveDescriptor alloc] init];
         _stringDescriptor = [[PDStringPrimitiveDescriptor alloc] init];
-        _listDescriptor = [[PDListDescriptor alloc] init];
-        _setDescriptor = [[PDSetDescriptor alloc] init];
-        _mapDescriptor = [[PDMapDescriptor alloc] init];
         _voidDescriptor = [[PDVoidDescriptor alloc] init];
     }
     return self;
@@ -582,16 +676,19 @@
     return [[self sharedDescriptors] stringDescriptor];
 }
 
-+ (id<PDDescriptor>)listDescriptor {
-    return [[self sharedDescriptors] listDescriptor];
++ (id<PDDescriptor>)listDescriptor:(id<PDDescriptor>)elementDescriptor {
+    return [[PDListDescriptor alloc] initWithElementDescriptor:elementDescriptor];
 }
 
-+ (id<PDDescriptor>)setDescriptor {
-    return [[self sharedDescriptors] setDescriptor];
++ (id<PDDescriptor>)setDescriptor:(id<PDDescriptor>)elementDescriptor {
+    return [[PDSetDescriptor alloc] initWithElementDescriptor:elementDescriptor];
 }
 
-+ (id<PDDescriptor>)mapDescriptor {
-    return [[self sharedDescriptors] mapDescriptor];
++ (id<PDDescriptor>)mapDescriptorWithKeyDescriptor:(id<PDDescriptor>)keyDescriptor
+                                   valueDescriptor:(id<PDDescriptor>)valueDescriptor
+{
+    return [[PDMapDescriptor alloc] initWithKeyDescriptor:keyDescriptor
+                                          valueDescriptor:valueDescriptor];
 }
 
 + (id<PDDescriptor>)voidDescriptor {
